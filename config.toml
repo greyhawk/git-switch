@@ -1,0 +1,4 @@
+repo = "gitlab.coloseo.cn/devops/trick.git"
+users = ["ging", "lyj"]
+emails = ["ging.wu@coloseo.cn", "lyj.liao@coloseo.cn"]
+passwords = ["1qaz2wsx", "1qaz2wsx"]
