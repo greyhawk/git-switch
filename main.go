@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os/exec"
 	"github.com/pelletier/go-toml"
+	"os/exec"
 )
 
 var index int
@@ -23,7 +23,7 @@ func main() {
 
 func parse(index int) (repo string, user string, email string, password string) {
 	config, _ := toml.LoadFile("./config.toml")
-  repo = config.Get("repo").(string)
+	repo = config.Get("repo").(string)
 	user = config.Get("users").([]interface{})[index].(string)
 	email = config.Get("emails").([]interface{})[index].(string)
 	password = config.Get("passwords").([]interface{})[index].(string)
