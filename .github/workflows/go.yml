@@ -6,25 +6,34 @@ on:
       - "*"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  publish:
+    name: Publish for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: git-switch
+            asset_name: git-switch-linux-amd64
+          - os: windows-latest
+            artifact_name: git-switch.exe
+            asset_name: git-switch-windows-amd64
+          - os: macos-latest
+            artifact_name: git-switch
+            asset_name: git-switch-macos-amd64
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-
       - name: Build
         run: go build -v ./...
-
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: git-switch
-          asset_name: git-switch
+          file: ${{ matrix.artifact_name }}
+          asset_name: ${{ matrix.asset_name }}
           tag: ${{ github.ref }}
           overwrite: true
-          body: "git switch binaries"
